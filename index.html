@@ -2,25 +2,50 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi Proyecto Personal</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #0d0d0d;
-      color: #e0e0e0;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi Portafolio</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Bienvenido a mi Proyecto</h1>
-  <img src="assets/banner.png" alt="Banner personal" />
-  <p>Este es un sitio básico desplegado con GitHub Pages.</p>
+  <header>
+    <img src="assets/banner.png" alt="Banner personalizado" class="banner" />
+    <h1>Claud - Desarrollador de Aplicaciones</h1>
+    <p>Bienvenido a mi espacio personal en la web</p>
+  </header>
+
+  <section id="sobre-mi">
+    <h2>Sobre mí</h2>
+    <p>Soy estudiante de DAM y aquí muestro mis proyectos, certificados y progresos.</p>
+  </section>
+
+  <section id="proyectos">
+    <h2>Proyectos destacados</h2>
+    <div class="proyecto">
+      <img src="assets/proyectos/proyecto1.png" alt="Proyecto 1" />
+      <h3>Agenda Android</h3>
+      <p>App nativa Android con SQLite.</p>
+    </div>
+    <!-- Agrega más proyectos aquí -->
+  </section>
+
+  <section id="certificados">
+    <h2>Certificados</h2>
+    <ul>
+      <li>🔹 Curso Kotlin - OpenWebinars</li>
+      <li>🔹 Curso SQL - OpenWebinars</li>
+      <!-- Más certificados -->
+    </ul>
+  </section>
+
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <a href="mailto:mccl@hotmail.com">
+      <img src="https://img.shields.io/badge/Email-mccl@hotmail.com-blue?style=flat&logo=gmail" alt="email" />
+    </a>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Claud</p>
+  </footer>
 </body>
 </html>
-
