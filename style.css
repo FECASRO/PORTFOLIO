@@ -1,65 +1,190 @@
-/* Generales */
+/* RESET Y BASE */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #edf2f7;
-  color: #333;
+  background: linear-gradient(to bottom right, #e3f2fd, #ffffff);
+  color: #222;
   line-height: 1.6;
+  padding-bottom: 50px;
+  padding-top: 20px;
 }
 
+/* ENCABEZADO */
 header {
-  background-color: #2d3748;
-  color: #fff;
-  padding: 30px 20px;
+  background-color: #0d47a1;
+  color: white;
   text-align: center;
+  padding: 40px 20px;
 }
 
+header h1 {
+  font-size: 2rem;
+}
+
+/* CONTENEDOR */
 .container {
-  max-width: 960px;
-  margin: 30px auto;
+  max-width: 1000px;
+  margin: 40px auto;
   padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
+/* TARJETAS */
 .card {
-  background-color: #f9fafb;
-  border-radius: 16px;
-  padding: 25px;
-  margin-bottom: 25px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  overflow: hidden;
+  position: relative;
+  border-left: 6px solid transparent; /* para animación suave */
 }
 
+/* HOVER */
 .card:hover {
-  background-color: rgba(249, 250, 251, 0.5);
-  backdrop-filter: blur(3px);
-  transform: translateY(-4px);
+  background-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-5px);
+  backdrop-filter: blur(6px);
 }
 
+/* TÍTULOS */
 .card h2 {
-  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.6em;
+  color: #0d47a1;
 }
 
+/* LISTAS Y ENLACES */
 ul {
-  padding-left: 20px;
+  list-style-type: disc;
+  margin-left: 20px;
 }
 
+a {
+  color: #1d4ed8;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* PERSONALIZACIÓN DE CADA SECCIÓN */
+.card-bio {
+  border-left: 6px solid #4aa3df;
+}
+
+.card-proyectos {
+  border-left: 6px solid #47c58b;
+}
+
+.card-certificados {
+  border-left: 6px solid #f59e0b;
+}
+
+.card-contacto {
+  border-left: 6px solid #a78bfa;
+}
+
+/* FOOTER */
 footer {
-  background-color: #2d3748;
-  color: #fff;
   text-align: center;
-  padding: 15px 0;
+  background-color: #0d47a1;
+  color: #fff;
+  padding: 20px;
 }
 
-/* Estilos específicos */
-.certificados img, .contacto img {
-  margin-top: 8px;
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .card {
+    padding: 20px;
+  }
+}
+#matrix-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  background: transparent;
+}
+/* Modal */
+#project-modal.modal-hidden {
+  display: none;
 }
 
-.bio { border-left: 5px solid #4299e1; }
-.proyectos { border-left: 5px solid #48bb78; }
-.certificados { border-left: 5px solid #ed8936; }
-.contacto { border-left: 5px solid #9f7aea; }
+#project-modal {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background-color: rgba(13, 71, 161, 0.8); /* similar a header azul pero semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 25px 30px;
+  max-width: 700px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  font-family: 'Segoe UI', sans-serif;
+  color: #222;
+  position: relative;
+}
+
+#modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: #0d47a1;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#modal-video-container iframe,
+#modal-video-container video {
+  width: 100%;
+  height: 350px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  background: black;
+}
+
+#modal-images {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin-bottom: 15px;
+}
+
+#modal-images img {
+  max-height: 120px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  cursor: default;
+  user-select: none;
+}
