@@ -5,9 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio de CLAUD</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Estilos mínimos para el modal y canvas del modal */
+    #project-modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.3);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    #project-modal.modal-visible {
+      display: flex;
+    }
+    #project-modal .modal-content {
+      background: white;
+      padding: 20px;
+      max-width: 700px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 8px;
+      position: relative;
+    }
+    #project-modal .modal-content img {
+      max-width: 100px;
+      border-radius: 4px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+    #modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-<canvas id="matrix-bg"></canvas>
+  <canvas id="matrix-bg"></canvas>
 
   <header>
     <h1>👨‍💻 F.CASTILLO - Estudiante en prácticas de DAM</h1>
@@ -15,7 +55,6 @@
   </header>
 
   <main class="container">
-
     <!-- Sección: Biografía -->
     <section class="card card-bio">
       <h2>🧾 Sobre mí</h2>
@@ -28,29 +67,28 @@
     <section class="card card-proyectos">
       <h2>🛠️ Proyectos Destacados</h2>
       <ul>
-  <li class="project-item" 
-      data-title="Conversor de Monedas (Kotlin / Java)"
-      data-video="https://www.youtube.com/embed/VIDEO_ID1"
-      data-images="img/conversor1.png,img/conversor2.png"
-      data-description="App para convertir monedas con interfaz sencilla y conversión rápida. Desarrollada en Kotlin y Java para Android.">
-    📱 Conversor de Monedas (Kotlin / Java)
-  </li>
-  <li class="project-item" 
-      data-title="Bloc de Notas con SQLite"
-      data-video="https://www.youtube.com/embed/VIDEO_ID2"
-      data-images="img/bloc1.png,img/bloc2.png"
-      data-description="Aplicación para tomar notas, guardar y gestionar con base de datos SQLite, diseñada para máxima usabilidad.">
-    📝 Bloc de Notas con SQLite
-  </li>
-  <li class="project-item" 
-      data-title="Midlet Mensajero"
-      data-video="https://www.youtube.com/embed/VIDEO_ID3"
-      data-images="img/midlet1.png,img/midlet2.png"
-      data-description="Proyecto Midlet para mensajería en tiempo real, con funcionalidad básica y prueba de concepto en Java ME.">
-    📡 Midlet Mensajero
-  </li>
-</ul>
-
+        <li class="project-item" 
+            data-title="Conversor de Monedas (Kotlin / Java)"
+            data-video="https://www.youtube.com/embed/VIDEO_ID1"
+            data-images="img/conversor1.png,img/conversor2.png"
+            data-description="App para convertir monedas con interfaz sencilla y conversión rápida. Desarrollada en Kotlin y Java para Android.">
+          📱 Conversor de Monedas (Kotlin / Java)
+        </li>
+        <li class="project-item" 
+            data-title="Bloc de Notas con SQLite"
+            data-video="https://www.youtube.com/embed/VIDEO_ID2"
+            data-images="img/bloc1.png,img/bloc2.png"
+            data-description="Aplicación para tomar notas, guardar y gestionar con base de datos SQLite, diseñada para máxima usabilidad.">
+          📝 Bloc de Notas con SQLite
+        </li>
+        <li class="project-item" 
+            data-title="Midlet Mensajero"
+            data-video="https://www.youtube.com/embed/VIDEO_ID3"
+            data-images="img/midlet1.png,img/midlet2.png"
+            data-description="Proyecto Midlet para mensajería en tiempo real, con funcionalidad básica y prueba de concepto en Java ME.">
+          📡 Midlet Mensajero
+        </li>
+      </ul>
     </section>
 
     <!-- Sección: Certificados -->
@@ -59,15 +97,15 @@
       <ul>
         <li>
           <strong>App Android con Copilot</strong>  
-          <img src="https://img.shields.io/badge/OpenWebinars-Copilot%20Android-blue?logo=android&style=flat" />
+          <img src="https://img.shields.io/badge/OpenWebinars-Copilot%20Android-blue?logo=android&style=flat" alt="Copilot Android" />
         </li>
         <li>
           <strong>Curso de Kotlin</strong>  
-          <img src="https://img.shields.io/badge/OpenWebinars-Kotlin-purple?logo=kotlin&style=flat" />
+          <img src="https://img.shields.io/badge/OpenWebinars-Kotlin-purple?logo=kotlin&style=flat" alt="Kotlin" />
         </li>
         <li>
           <strong>Curso de Unity</strong>  
-          <img src="https://img.shields.io/badge/OpenWebinars-Unity-orange?logo=unity&style=flat" />
+          <img src="https://img.shields.io/badge/OpenWebinars-Unity-orange?logo=unity&style=flat" alt="Unity" />
         </li>
       </ul>
     </section>
@@ -80,211 +118,178 @@
         <img src="https://img.shields.io/badge/Email-m.c.claud1%40hotmail.com-blue?style=flat&logo=gmail" alt="Email Badge" />
       </a>
     </section>
-
   </main>
 
   <footer>
     <p>© 2025 CLAUD | Portfolio personal</p>
   </footer>
-<script>
-  const canvas = document.getElementById("matrix-bg");
-  const ctx = canvas.getContext("2d");
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  <!-- Modal para mostrar proyecto -->
+  <div id="project-modal">
+    <div class="modal-content">
+      <button id="modal-close">&times;</button>
+      <h3 id="modal-title"></h3>
+      <div id="modal-video-container" style="margin-bottom:15px;"></div>
+      <div id="modal-images" style="display:flex; margin-bottom:15px;"></div>
+      <p id="modal-description"></p>
+      <canvas id="matrix-canvas" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1; border-radius: 8px;"></canvas>
+    </div>
+  </div>
 
-  const chars = "アイウエオカキクケコサシスセソ0123456789";
-  const fontSize = 14;
-  const columns = canvas.width / fontSize;
-  const drops = Array.from({ length: columns }, () => Math.random() * canvas.height / fontSize);
+  <script>
+  // ===== Efecto Matrix en el fondo principal =====
+  const canvasBg = document.getElementById("matrix-bg");
+  if (canvasBg && canvasBg.getContext) {
+    const ctxBg = canvasBg.getContext("2d");
+    const chars = "アイウエオカキクケコサシスセソ0123456789";
+    const fontSizeBg = 14;
+    let dropsBg = [];
 
-  function drawMatrix() {
-    ctx.fillStyle = "rgba(242,246,250,0.06)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#999";
-    ctx.font = fontSize + "px monospace";
-
-    for (let i = 0; i < drops.length; i++) {
-      const text = chars[Math.floor(Math.random() * chars.length)];
-      const x = i * fontSize;
-      const y = drops[i] * fontSize;
-
-      ctx.fillText(text, x, y);
-
-      if (y > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-      drops[i]++;
+    function resizeCanvasBg() {
+      canvasBg.width = window.innerWidth;
+      canvasBg.height = window.innerHeight;
+      const columns = Math.floor(canvasBg.width / fontSizeBg);
+      dropsBg = Array.from({ length: columns }, () => Math.random() * canvasBg.height / fontSizeBg);
     }
+
+    function drawMatrixBg() {
+      ctxBg.fillStyle = "rgba(242,246,250,0.06)";
+      ctxBg.fillRect(0, 0, canvasBg.width, canvasBg.height);
+      ctxBg.fillStyle = "#999";
+      ctxBg.font = fontSizeBg + "px monospace";
+
+      for (let i = 0; i < dropsBg.length; i++) {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        const x = i * fontSizeBg;
+        const y = dropsBg[i] * fontSizeBg;
+        ctxBg.fillText(text, x, y);
+
+        if (y > canvasBg.height && Math.random() > 0.975) {
+          dropsBg[i] = 0;
+        }
+        dropsBg[i]++;
+      }
+    }
+
+    window.addEventListener("resize", resizeCanvasBg);
+    resizeCanvasBg();
+    setInterval(drawMatrixBg, 70);
   }
 
-  setInterval(drawMatrix, 70);
-
-  window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
-
+  // ===== Modal y Matrix interno =====
   const modal = document.getElementById('project-modal');
-const modalTitle = document.getElementById('modal-title');
-const modalVideoContainer = document.getElementById('modal-video-container');
-const modalImages = document.getElementById('modal-images');
-const modalDescription = document.getElementById('modal-description');
-const modalClose = document.getElementById('modal-close');
+  const modalTitle = document.getElementById('modal-title');
+  const modalVideoContainer = document.getElementById('modal-video-container');
+  const modalImages = document.getElementById('modal-images');
+  const modalDescription = document.getElementById('modal-description');
+  const modalClose = document.getElementById('modal-close');
+  const matrixCanvas = document.getElementById('matrix-canvas');
 
-document.querySelectorAll('.project-item').forEach(item => {
-  item.style.cursor = 'pointer';
-  item.addEventListener('click', () => {
-    const title = item.dataset.title;
-    const video = item.dataset.video;
-    const images = item.dataset.images ? item.dataset.images.split(',') : [];
-    const description = item.dataset.description;
+  let animationId;
+  let dropsModal = [];
+  const fontSizeModal = 12;
 
-    modalTitle.textContent = title;
+  function startMatrixModal() {
+    if (!matrixCanvas || !matrixCanvas.getContext) return;
+    const ctxModal = matrixCanvas.getContext('2d');
 
-    // Video embed iframe
-    modalVideoContainer.innerHTML = `<iframe src="${video}" frameborder="0" allowfullscreen></iframe>`;
+    matrixCanvas.width = matrixCanvas.parentElement.clientWidth;
+    matrixCanvas.height = matrixCanvas.parentElement.clientHeight;
 
-    // Images
-    modalImages.innerHTML = '';
-    images.forEach(src => {
-      const img = document.createElement('img');
-      img.src = src.trim();
-      modalImages.appendChild(img);
-    });
+    const columnsModal = Math.floor(matrixCanvas.width / fontSizeModal);
+    dropsModal = Array(columnsModal).fill(1);
 
-    modalDescription.textContent = description;
+    function draw() {
+      ctxModal.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctxModal.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+      ctxModal.fillStyle = "#ff6600";
+      ctxModal.font = fontSizeModal + "px monospace";
 
-    modal.classList.remove('modal-hidden');
-  });
-});
+      for (let i = 0; i < dropsModal.length; i++) {
+        const text = String.fromCharCode(124 + Math.random() * 33);
+        const x = i * fontSizeModal;
+        const y = dropsModal[i] * fontSizeModal;
+        ctxModal.fillText(text, x, y);
 
-modalClose.addEventListener('click', () => {
-  modal.classList.add('modal-hidden');
-  modalVideoContainer.innerHTML = ''; // stop video
-  modalImages.innerHTML = '';
-  modalDescription.textContent = '';
-});
+        if (y > matrixCanvas.height && Math.random() > 0.975) {
+          dropsModal[i] = 0;
+        }
+        dropsModal[i]++;
+      }
+      animationId = requestAnimationFrame(draw);
+    }
 
-// Cerrar modal al click fuera del contenido
-modal.addEventListener('click', (e) => {
-  if (e.target === modal) {
-    modal.classList.add('modal-hidden');
+    draw();
+  }
+
+  function stopMatrixModal() {
+    if (!matrixCanvas || !matrixCanvas.getContext) return;
+    cancelAnimationFrame(animationId);
+    const ctxModal = matrixCanvas.getContext('2d');
+    ctxModal.clearRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+  }
+
+  function openModal(project) {
+    if (!modal || !modalTitle || !modalDescription || !modalVideoContainer || !modalImages) return;
+
+    modalTitle.textContent = project.title || '';
+    modalDescription.textContent = project.description || '';
+
     modalVideoContainer.innerHTML = '';
     modalImages.innerHTML = '';
-    modalDescription.textContent = '';
-  }
-});
 
-</script>
+    if (project.video) {
+      const iframe = document.createElement('iframe');
+      iframe.src = project.video;
+      iframe.width = "100%";
+      iframe.height = "250";
+      iframe.frameBorder = "0";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      modalVideoContainer.appendChild(iframe);
+    }
 
-<!-- Modal para mostrar proyecto -->
-<div id="project-modal" class="modal-hidden" style="
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.7);
-  display: none;  /* <-- oculto por defecto */
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-">
-  <div style="
-    background: white;
-    padding: 20px;
-    max-width: 700px;
-    width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
-    border-radius: 8px;
-    position: relative;
-  ">
-    <button id="modal-close" style="
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: transparent;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-    ">&times;</button>
-
-    <h3 id="modal-title" style="margin-top:0;"></h3>
-    <div id="modal-video-container" style="margin-bottom:15px;"></div>
-    <div id="modal-images" style="display:flex; margin-bottom:15px; gap:10px;"></div>
-    <p id="modal-description"></p>
-  </div>
-</div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('project-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalVideoContainer = document.getElementById('modal-video-container');
-    const modalImages = document.getElementById('modal-images');
-    const modalDescription = document.getElementById('modal-description');
-    const modalClose = document.getElementById('modal-close');
-
-    // Asegurar cursor pointer en proyectos (por si no tienes CSS para eso)
-    document.querySelectorAll('.project-item').forEach(item => {
-      item.style.cursor = 'pointer';
-    });
-
-    document.querySelectorAll('.project-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const title = item.dataset.title || '';
-        const video = item.dataset.video || '';
-        const images = item.dataset.images ? item.dataset.images.split(',') : [];
-        const description = item.dataset.description || '';
-
-        modalTitle.textContent = title;
-
-        // Insertar iframe para video
-        if(video) {
-          modalVideoContainer.innerHTML = `<iframe width="560" height="315" src="${video}" frameborder="0" allowfullscreen></iframe>`;
-        } else {
-          modalVideoContainer.innerHTML = '';
-        }
-
-        // Insertar imágenes
-        modalImages.innerHTML = '';
-        images.forEach(src => {
-          const img = document.createElement('img');
-          img.src = src.trim();
-          img.style.maxWidth = '100px';
-          img.style.borderRadius = '4px';
-          img.style.objectFit = 'cover';
-          modalImages.appendChild(img);
-        });
-
-        modalDescription.textContent = description;
-
-        modal.classList.remove('modal-hidden');
-        modal.style.display = 'flex';
+    if (Array.isArray(project.images)) {
+      project.images.forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = project.title || 'Imagen';
+        modalImages.appendChild(img);
       });
-    });
+    }
 
+    modal.classList.add('modal-visible');
+    startMatrixModal();
+  }
+
+  if (modalClose) {
     modalClose.addEventListener('click', () => {
-      modal.classList.add('modal-hidden');
-      modal.style.display = 'none';
-      modalVideoContainer.innerHTML = '';
-      modalImages.innerHTML = '';
-      modalDescription.textContent = '';
+      modal.classList.remove('modal-visible');
+      stopMatrixModal();
     });
+  }
 
-    modal.addEventListener('click', (e) => {
+  if (modal) {
+    modal.addEventListener('click', e => {
       if (e.target === modal) {
-        modal.classList.add('modal-hidden');
-        modal.style.display = 'none';
-        modalVideoContainer.innerHTML = '';
-        modalImages.innerHTML = '';
-        modalDescription.textContent = '';
+        modal.classList.remove('modal-visible');
+        stopMatrixModal();
       }
+    });
+  }
+
+  document.querySelectorAll('.project-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const title = item.dataset.title || '';
+      const video = item.dataset.video || '';
+      const images = item.dataset.images ? item.dataset.images.split(',') : [];
+      const description = item.dataset.description || '';
+
+      openModal({ title, video, images, description });
     });
   });
 </script>
 
-
-
+  
 </body>
-
 </html>
