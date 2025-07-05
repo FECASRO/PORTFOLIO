@@ -34,6 +34,11 @@
       border-radius: 4px;
       object-fit: cover;
       margin-right: 10px;
+      cursor: pointer; /* Indicar que se puede clicar */
+      transition: transform 0.2s ease;
+    }
+    #project-modal .modal-content img:hover {
+      transform: scale(1.1);
     }
     #modal-close {
       position: absolute;
@@ -68,11 +73,11 @@
       <h2>🛠️ Proyectos Destacados</h2>
       <ul>
         <li class="project-item" 
-            data-title="Conversor de Monedas (Kotlin / Java)"
-            data-video="https://www.youtube.com/embed/VIDEO_ID1"
-            data-images="img/conversor1.png,img/conversor2.png"
-            data-description="App para convertir monedas con interfaz sencilla y conversión rápida. Desarrollada en Kotlin y Java para Android.">
-          📱 Conversor de Monedas (Kotlin / Java)
+            data-title="Video juego espacial"
+            data-video="https://www.youtube.com/embed/extWEB9B440"
+            data-images="images/conversor1.jpg,images/conversor2.jpg,images/conversor3.jpg"
+            data-description="App para divertirse intentando llegar a la tierra esquivando misiles y satelites">
+          📱 Juego con Unity (c#)
         </li>
         <li class="project-item" 
             data-title="Bloc de Notas con SQLite"
@@ -218,42 +223,42 @@
       }
       animationId = requestAnimationFrame(draw);
     }
-
     draw();
   }
 
   function stopMatrixModal() {
-    if (!matrixCanvas || !matrixCanvas.getContext) return;
     cancelAnimationFrame(animationId);
-    const ctxModal = matrixCanvas.getContext('2d');
-    ctxModal.clearRect(0, 0, matrixCanvas.width, matrixCanvas.height);
   }
 
+  // ===== Funciones Modal =====
   function openModal(project) {
-    if (!modal || !modalTitle || !modalDescription || !modalVideoContainer || !modalImages) return;
+    modalTitle.textContent = project.title;
+    modalDescription.textContent = project.description;
 
-    modalTitle.textContent = project.title || '';
-    modalDescription.textContent = project.description || '';
-
+    // Vídeo
     modalVideoContainer.innerHTML = '';
-    modalImages.innerHTML = '';
-
     if (project.video) {
       const iframe = document.createElement('iframe');
+      iframe.width = '100%';
+      iframe.height = '300';
       iframe.src = project.video;
-      iframe.width = "100%";
-      iframe.height = "250";
-      iframe.frameBorder = "0";
-      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.frameBorder = '0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
       iframe.allowFullscreen = true;
       modalVideoContainer.appendChild(iframe);
     }
 
-    if (Array.isArray(project.images)) {
+    // Imágenes
+    modalImages.innerHTML = '';
+    if (project.images && project.images.length > 0) {
       project.images.forEach(src => {
         const img = document.createElement('img');
-        img.src = src;
-        img.alt = project.title || 'Imagen';
+        img.src = src.trim();
+        img.alt = project.title + " - imagen";
+        img.addEventListener('click', () => {
+          // Al clicar en la imagen la abrimos en nueva pestaña en tamaño original
+          window.open(src.trim(), '_blank');
+        });
         modalImages.appendChild(img);
       });
     }
@@ -262,34 +267,35 @@
     startMatrixModal();
   }
 
-  if (modalClose) {
-    modalClose.addEventListener('click', () => {
-      modal.classList.remove('modal-visible');
-      stopMatrixModal();
-    });
+  function closeModal() {
+    modal.classList.remove('modal-visible');
+    stopMatrixModal();
+    modalVideoContainer.innerHTML = '';
+    modalImages.innerHTML = '';
+    modalTitle.textContent = '';
+    modalDescription.textContent = '';
   }
 
-  if (modal) {
-    modal.addEventListener('click', e => {
-      if (e.target === modal) {
-        modal.classList.remove('modal-visible');
-        stopMatrixModal();
-      }
-    });
-  }
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
 
-  document.querySelectorAll('.project-item').forEach(item => {
+  // ===== Listeners para los proyectos =====
+  const projectItems = document.querySelectorAll('.project-item');
+  projectItems.forEach(item => {
     item.addEventListener('click', () => {
-      const title = item.dataset.title || '';
-      const video = item.dataset.video || '';
-      const images = item.dataset.images ? item.dataset.images.split(',') : [];
-      const description = item.dataset.description || '';
-
-      openModal({ title, video, images, description });
+      const project = {
+        title: item.dataset.title,
+        video: item.dataset.video,
+        description: item.dataset.description,
+        images: item.dataset.images ? item.dataset.images.split(',') : []
+      };
+      openModal(project);
     });
   });
-</script>
-
-  
+  </script>
 </body>
 </html>

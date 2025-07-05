@@ -228,3 +228,21 @@ footer {
 .project-item:focus {
   outline: 2px solid #FFA500;
 }
+.miniatura {
+  width: 100px;
+  margin: 5px;
+  border-radius: 6px;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.miniatura:hover {
+  transform: scale(1.2);
+}
+
+.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
