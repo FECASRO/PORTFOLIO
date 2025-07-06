@@ -246,3 +246,23 @@ footer {
   gap: 10px;
   margin-top: 10px;
 }
+.github-badge {
+  display: inline-block;
+  background-color: #24292e;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.github-badge i {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.github-badge:hover {
+  background-color: #0366d6;
+}
